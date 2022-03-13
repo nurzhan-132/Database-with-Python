@@ -1,1 +1,126 @@
+<form action="/analysis" method="get">
+<center>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
+Our <strong>{{ db_name }}</strong> database! 
+<form action="/refresh" method="get">
+    <input type="submit" name="refresh" value="start over">
+</form>
+<br/><br/><br/>
+
+%if not chosen_table:
+    <select name="all_tables">
+        <option selected="selected" value="">All tables</option>
+        %for table in tables:
+            <option value="{{table[0]}}">{{table[0]}}</option>
+        %end
+    </select>
+
+    <input type="submit" name="choose" value="select table"> <br/>
+%end
+
+%if chosen_table:
+    Selected table: <strong>{{ chosen_table }}</strong> &nbsp;&nbsp;&nbsp;
+    %if performance_value:
+        <font color='red'>time performance:</font> {{ performance_value }} seconds
+    %end
+    <br/> <br/>
+
+    <form action="/retrieve" method="get">
+        <select name="chosen_table_name" hidden>
+            <option selected="selected" value={{ tables[0][0] }}></option>
+        </select>
+
+        %if tables[0][0] == "customer": 
+            <input type="submit" name="queryNumber" value="Lab3: Query1"> <br/> 
+        %else:
+            <input type="submit" name="queryNumber" value="Lab3: Query1" disabled> <br/> 
+        %end
+
+        %if tables[0][0] == "supplier": 
+            <input type="submit" name="queryNumber" value="Lab3: Query2"> <br/>
+        %else:
+            <input type="submit" name="queryNumber" value="Lab3: Query2" disabled> <br/>
+        %end
+
+        %if tables[0][0] == "part":
+            <input type="submit" name="queryNumber" value="Lab3: Query3"> <br/>
+        %else:
+            <input type="submit" name="queryNumber" value="Lab3: Query3" disabled> <br/>
+        %end
+
+        %if tables[0][0] == "orders":
+            <input type="submit" name="queryNumber" value="Lab3: Query4"> <br/>
+        %else:
+            <input type="submit" name="queryNumber" value="Lab3: Query4" disabled> <br/>
+        %end
+
+        %if tables[0][0] == "part":
+            <input type="submit" name="queryNumber" value="Lab3: Query5"> <br/>
+        %else:
+            <input type="submit" name="queryNumber" value="Lab3: Query5" disabled> <br/>
+        %end
+
+        %if tables[0][0] == "partsupp":
+            <input type="submit" name="queryNumber" value="Lab3: Query6"> <br/>
+        %else:
+            <input type="submit" name="queryNumber" value="Lab3: Query6" disabled> <br/>
+        %end
+
+        %if tables[0][0] == "lineitem":
+            <input type="submit" name="queryNumber" value="Lab3: Query7"> <br/>
+        %else:
+            <input type="submit" name="queryNumber" value="Lab3: Query7" disabled> <br/>
+        %end
+
+        %if tables[0][0] == "part":
+            <input type="submit" name="queryNumber" value="Lab3: Query8"> <br/>
+        %else:
+            <input type="submit" name="queryNumber" value="Lab3: Query8" disabled> <br/>
+        %end
+
+        %if tables[0][0] == "customer": 
+            <input type="submit" name="queryNumber" value="Lab3: Query9"> <br/>
+        %else:
+            <input type="submit" name="queryNumber" value="Lab3: Query9" disabled> <br/>
+        %end
+
+        %if tables[0][0] == "lineitem":
+            <input type="submit" name="queryNumber" value="Lab3: Query10"> <br/>
+        %else:
+            <input type="submit" name="queryNumber" value="Lab3: Query10" disabled> <br/>
+        %end
+    </form>
+    <br/><br/>
+
+    %if query_performance:
+        <font color='red'>time performance:</font> {{ query_performance }} seconds
+        <br/><br/>
+        <form action="/analysis" method="get">
+            <input type="submit" name="back" value="back">
+            <select name="chosen_table_name" hidden>
+                <option selected="selected" value={{ tables[0][0] }}></option>
+            </select>
+        </form>
+        <br/><br/><br/>
+    %end
+
+    <table>
+        <tr>
+        %for column in table_columns:
+            <th> {{ column[0] }} </th>
+        %end
+        </tr>
+        
+        %for value in table_content:
+            <tr>
+            %for idx in range(len(value)):
+                <td> {{ value[idx] }} &nbsp;&nbsp;&nbsp; </td>
+            %end
+            </tr>
+        %end
+    </table>
+%end
+
+</center>
+</form>

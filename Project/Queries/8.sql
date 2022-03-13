@@ -1,0 +1,2 @@
+SELECT ROUND(SUM(p_retailprice)) from part 
+WHERE p_retailprice < 2000 AND (p_mfgr='Manufacturer#1' OR p_mfgr='Manufacturer#2' OR p_mfgr='Manufacturer#3' OR p_mfgr='Manufacturer#4' OR p_mfgr='Manufacturer#5' OR p_mfgr='Manufacturer#6');
